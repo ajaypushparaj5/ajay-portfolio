@@ -201,9 +201,10 @@ export default function Home() {
                   <div className="text-right mt-6 pr-6 relative z-20">
                     <h3 className="text-2xl font-display font-bold text-white mb-4 uppercase tracking-wide">Education</h3>
                     <p className="text-[16px] xl:text-[18px] text-gray-300 leading-relaxed font-sans opacity-95">
-                      Bachelor of Technology in IT,<br />
-                      Specializing in AI Systems<br />
-                      (CUSAT & RGNIYD Researches)
+                      B.Tech Information Technology,<br />
+                      2023-27<br />
+                      CUSAT<br />
+
                     </p>
                   </div>
                 </div>
