@@ -48,6 +48,9 @@ export default function Home() {
       {/* Hero Section */}
       <section className="w-full min-h-screen flex items-center justify-center relative pt-20 pb-32 overflow-hidden">
 
+        {/* Subtle Matrix scanline overlay */}
+        <div className="absolute inset-0 z-0 matrix-overlay opacity-70" />
+
         {/* Floating Typography BEHIND ASCII */}
         <div className="absolute inset-0 flex flex-col justify-center items-start pl-4 md:pl-16 lg:pl-20 z-10 pointer-events-none w-full">
           <h1 className="text-[18vw] font-black tracking-tighter leading-[0.8] mb-4 bg-gradient-to-r from-white via-white/70 to-transparent bg-clip-text text-transparent w-[140%] pointer-events-none">
@@ -65,7 +68,7 @@ export default function Home() {
           <div className="absolute inset-0 bg-[radial-gradient(ellipse_at_center,rgba(0,0,0,1)_15%,rgba(0,0,0,0.8)_35%,transparent_65%)] pointer-events-none" />
 
           {/* ASCII text with complex glowing colored shades */}
-          <pre className="relative z-30 text-[8px] sm:text-[9px] md:text-[10px] leading-[8px] sm:leading-[9px] md:leading-[10px] font-mono whitespace-pre font-bold select-none text-center bg-[radial-gradient(ellipse_at_center,#bcedc5_0%,var(--color-primary)_35%,var(--color-primary-dark)_65%,#1b2b1d_100%)] bg-clip-text text-transparent drop-shadow-[0_0_15px_rgba(138,185,145,0.15)]">
+          <pre className="ascii-gradient relative z-30 text-[8px] sm:text-[9px] md:text-[10px] leading-[8px] sm:leading-[9px] md:leading-[10px] font-mono whitespace-pre font-bold select-none text-center drop-shadow-[0_0_15px_rgba(138,185,145,0.15)]">
             {asciiArt}
           </pre>
         </div>
