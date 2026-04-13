@@ -3,6 +3,7 @@
 import Link from "next/link";
 import { portfolioData } from "@/lib/data";
 import { useEffect, useState } from "react";
+import { BGPattern } from "@/components/ui/bg-pattern";
 
 export default function Home() {
   const [asciiArt, setAsciiArt] = useState("");
@@ -15,130 +16,126 @@ export default function Home() {
   }, []);
 
   return (
-    <main className="w-full flex-col flex items-center text-primary bg-black min-h-screen relative font-mono overflow-x-hidden selection:bg-primary selection:text-black">
-
-      {/* Top Marquee */}
-      <div className="w-full border-b border-primary/30 overflow-hidden py-[10px] fixed top-0 z-50 bg-black/90 backdrop-blur-sm">
-        <div className="animate-marquee inline-block whitespace-nowrap text-sm font-bold tracking-widest text-primary">
-          <span className="mx-4">{portfolioData.hero.title} /// </span>
-          {portfolioData.metrics.map(m => (
-            <span key={m.label} className="mx-4">{m.label}: {m.value} /// </span>
-          ))}
-          <span className="mx-4">SYSTEM STATUS: ONLINE /// </span>
-          <span className="mx-4">LATENCY: SUB-60MS /// </span>
-          <span className="mx-4">{portfolioData.hero.title} /// </span>
-          {portfolioData.metrics.map(m => (
-            <span key={m.label + '2'} className="mx-4">{m.label}: {m.value} /// </span>
-          ))}
-        </div>
-      </div>
+    <main className="w-full flex-col flex items-center bg-black min-h-screen relative overflow-x-hidden selection:bg-primary selection:text-black">
 
       {/* Floating Header Info */}
-      <div className="w-full flex justify-between absolute top-20 px-8 z-40 text-xs md:text-sm font-bold">
-        <div className="flex gap-4">
-          <a href={portfolioData.contact.github} target="_blank" className="hover:text-white transition-colors">[ GITHUB ]</a>
-          <a href={portfolioData.contact.linkedin} target="_blank" className="hover:text-white transition-colors">[ LINKEDIN ]</a>
-          <a href={`mailto:${portfolioData.contact.email}`} className="hover:text-white transition-colors">[ EMAIL ]</a>
+      <header className="w-full flex justify-between absolute top-12 px-6 md:px-12 z-40 text-xs md:text-sm font-medium text-white/70">
+        <div className="flex gap-6 md:gap-10">
+          <a href={portfolioData.contact.github} target="_blank" className="hover:text-primary transition-colors uppercase tracking-widest">GitHub</a>
+          <a href={portfolioData.contact.linkedin} target="_blank" className="hover:text-primary transition-colors uppercase tracking-widest">LinkedIn</a>
+          <a href={`mailto:${portfolioData.contact.email}`} className="hover:text-primary transition-colors uppercase tracking-widest">Email</a>
         </div>
-        <div className="hidden md:block opacity-70">
-          LOCATION // CUSAT, 2023-27
+        <div className="hidden md:block uppercase tracking-widest">
+          CUSAT, 2023-27
         </div>
-      </div>
+      </header>
 
       {/* Hero Section */}
       <section className="w-full min-h-screen flex items-center justify-center relative pt-20 pb-32 overflow-hidden">
 
-        {/* Subtle Matrix scanline overlay */}
-        <div className="absolute inset-0 z-0 matrix-overlay opacity-70" />
+        {/* Background Pattern */}
+        <BGPattern className="!z-0 opacity-80" variant="grid" mask="fade-edges" fill="rgba(255,255,255,0.4)" size={32} />
 
-        {/* Floating Typography BEHIND ASCII */}
-        <div className="absolute inset-0 flex flex-col justify-center items-start pl-4 md:pl-16 lg:pl-20 z-10 pointer-events-none w-full">
-          <h1 className="text-[18vw] font-black tracking-tighter leading-[0.8] mb-4 bg-gradient-to-r from-white via-white/70 to-transparent bg-clip-text text-transparent w-[140%] pointer-events-none">
-            AJAY SHYAM<br />SUNDAR P.
+        {/* Floating Typography BEHIND ASCII on Desktop, OVER ASCII on Mobile */}
+        <div className="absolute inset-0 flex flex-col justify-center items-center z-30 md:z-10 pointer-events-none w-full font-display px-4">
+          <h1 className="flex flex-col text-[17vw] sm:text-[16vw] lg:text-[14.5vw] font-black tracking-tighter leading-[0.8] mb-6 text-white pointer-events-none uppercase drop-shadow-2xl text-center w-full">
+            <span className="whitespace-nowrap">AJAY SHYAM</span>
+            <span className="whitespace-nowrap -mt-2 md:-mt-8">SUNDAR P.</span>
           </h1>
-          <p className="text-primary font-bold text-lg md:text-2xl uppercase tracking-widest mt-2 bg-black/60 p-3 border border-primary/40 inline-block pointer-events-auto backdrop-blur-md">
-            &gt; {portfolioData.hero.title}_<span className="animate-pulse">|</span>
+          <p className="text-white font-medium text-lg md:text-2xl uppercase tracking-widest bg-black/60 p-3 border border-white/20 inline-block pointer-events-auto backdrop-blur-md">
+            {portfolioData.hero.title}
           </p>
         </div>
 
-        {/* Massive ASCII Art ON TOP */}
-        <div className="absolute inset-0 z-20 w-full overflow-hidden flex justify-center items-center scale-[0.6] sm:scale-75 md:scale-90 lg:scale-[1.1] origin-center pointer-events-none">
+        {/* Massive ASCII Art ON TOP (desktop) / HIDDEN BEHIND TEXT (mobile) */}
+        <div className="absolute inset-0 z-10 md:z-20 w-full overflow-hidden flex justify-center items-center scale-125 sm:scale-100 lg:scale-[1.1] origin-center pointer-events-none">
 
-          {/* Black radial mask to block the text exactly behind the portrait */}
-          <div className="absolute inset-0 bg-[radial-gradient(ellipse_at_center,rgba(0,0,0,1)_15%,rgba(0,0,0,0.8)_35%,transparent_65%)] pointer-events-none" />
+          {/* Black radial mask to tightly block the text exactly behind the portrait on DESKTOP ONLY */}
+          <div className="absolute inset-0 bg-[radial-gradient(ellipse_at_center,rgba(0,0,0,1)_15%,rgba(0,0,0,0.85)_35%,transparent_65%)] pointer-events-none hidden md:block" />
 
-          {/* ASCII text with complex glowing colored shades */}
-          <pre className="ascii-gradient relative z-30 text-[8px] sm:text-[9px] md:text-[10px] leading-[8px] sm:leading-[9px] md:leading-[10px] font-mono whitespace-pre font-bold select-none text-center drop-shadow-[0_0_15px_rgba(138,185,145,0.15)]">
+          {/* ASCII Text */}
+          <pre className="ascii-gradient relative z-10 text-[6.5px] leading-[6.5px] sm:text-[6px] sm:leading-[6px] md:text-[7.5px] md:leading-[7.5px] lg:text-[10px] lg:leading-[10px] font-mono whitespace-pre font-bold select-none text-center drop-shadow-[0_0_15px_rgba(138,185,145,0.15)] flex justify-center items-center">
             {asciiArt}
           </pre>
         </div>
-
       </section>
 
-      {/* Terminal Output Sections */}
-      <section className="w-full max-w-6xl mx-auto px-6 pb-32 flex flex-col md:flex-row gap-12 lg:gap-16 relative z-30 mt-16">
+      {/* Lower Details Content Wrapper with Texture */}
+      <div className="w-full relative pt-16">
+        <BGPattern className="!z-0 opacity-80 pointer-events-none" variant="dots" mask="fade-top" fill="rgba(255,255,255,0.45)" size={24} />
 
-        {/* Profile Output (Left Column) */}
-        <div className="flex-1 border border-primary/30 bg-black/80 backdrop-blur-md p-6 lg:p-8 self-start sticky top-24">
-          <div className="border-b border-primary/30 pb-3 mb-6 flex gap-3 items-center">
-            <div className="w-3 h-3 bg-primary rounded-full animate-pulse" />
-            <h3 className="font-bold tracking-widest text-lg">~ /system/dna.sh</h3>
-          </div>
-          <div className="space-y-4 opacity-90 text-[15px] lg:text-[16px] leading-relaxed">
-            <p className="text-white">&gt; Executing user_profile.scan()...</p>
-            <p className="text-white">&gt; Initialization complete.</p>
-            <p>&gt; <span className="text-primary">Profile:</span> {portfolioData.profile.description1}</p>
-            <p>&gt; <span className="text-primary">Mission:</span> {portfolioData.profile.description2}</p>
-            <br />
-            <p className="text-white">&gt; Scanning modules...</p>
-            <p className="text-primary">&gt; System Capabilities Found:</p>
-            <ul className="list-none pl-4 text-white/90 space-y-2">
-              <li>[+] RAG Pipelines</li>
-              <li>[+] Reinforcement Learning</li>
-              <li>[+] Computer Vision</li>
-              <li>[+] Python / FastAPI</li>
-              <li>[+] Next.js / TypeScript</li>
-            </ul>
-          </div>
-        </div>
+        {/* Minimalist Details Section */}
+        <section className="w-full max-w-6xl mx-auto px-6 pb-20 flex flex-col md:flex-row gap-12 lg:gap-16 relative z-30 font-sans">
 
-        {/* Projects Log (Right Column) */}
-        <div className="flex-[1.5] border border-primary/30 bg-black/80 backdrop-blur-md p-6 lg:p-8">
-          <div className="border-b border-primary/30 pb-3 mb-8 flex gap-3 items-center">
-            <div className="w-3 h-3 bg-white rounded-full" />
-            <h3 className="font-bold tracking-widest text-lg">~ /system/deployments.log</h3>
-          </div>
-          <div className="flex flex-col gap-10">
-            {portfolioData.projects.map((project, idx) => (
-              <div key={project.id} className="group border-l-[3px] border-primary-dark pl-5 py-2 hover:border-primary transition-colors cursor-pointer">
-                <Link href={`/projects/${project.id}`} className="block">
-                  <div className="flex flex-col md:flex-row justify-between md:items-center gap-3">
-                    <h4 className="font-bold text-xl lg:text-[22px] tracking-widest text-white group-hover:text-primary transition-colors">
-                      [{project.title}]
-                    </h4>
-                    <span className="text-sm font-bold border border-primary/40 px-4 py-1.5 bg-primary/10 group-hover:bg-primary group-hover:text-black transition-all">
-                      EXECUTE &rarr;
-                    </span>
-                  </div>
-                  <p className="text-sm mt-4 uppercase tracking-widest opacity-80 text-primary">
-                    &gt; tech_stack: [ {project.tags.join(", ")} ]
-                  </p>
-                  <p className="mt-3 text-white/80 leading-relaxed">
-                    &gt; {project.description}
-                  </p>
-                </Link>
+          {/* Profile Output (Left Column) */}
+          <div className="flex-1 bg-black p-8 border border-white/10 hover:border-white/20 transition-all self-start md:sticky top-24">
+            <h3 className="font-display font-bold tracking-widest text-xl text-primary mb-8 uppercase">Profile DNA</h3>
+            <div className="space-y-6 opacity-90 text-[15px] lg:text-[16px] leading-relaxed text-white">
+              <p className="font-light">{portfolioData.profile.description1}</p>
+              <p className="font-light">{portfolioData.profile.description2}</p>
+
+              <div className="pt-6 border-t border-white/10">
+                <h4 className="font-bold text-sm tracking-widest uppercase mb-4 text-white/50">Core Capabilities</h4>
+                <ul className="space-y-3 font-light text-white/80">
+                  <li className="flex items-center gap-3"><div className="w-1.5 h-1.5 bg-primary/70 rounded-full" /> RAG Pipelines</li>
+                  <li className="flex items-center gap-3"><div className="w-1.5 h-1.5 bg-primary/70 rounded-full" /> Reinforcement Learning</li>
+                  <li className="flex items-center gap-3"><div className="w-1.5 h-1.5 bg-primary/70 rounded-full" /> Computer Vision</li>
+                  <li className="flex items-center gap-3"><div className="w-1.5 h-1.5 bg-primary/70 rounded-full" /> Python / FastAPI</li>
+                  <li className="flex items-center gap-3"><div className="w-1.5 h-1.5 bg-primary/70 rounded-full" /> Next.js / TypeScript</li>
+                </ul>
               </div>
-            ))}
+            </div>
           </div>
-        </div>
 
-      </section>
+          {/* Projects Log (Right Column) */}
+          <div className="flex-[1.5] bg-black p-8 border border-white/10 hover:border-white/20 transition-all">
+            <h3 className="font-display font-bold tracking-widest text-xl text-primary mb-8 uppercase">Systems & Deployments</h3>
 
-      {/* Footer Log */}
-      <footer className="w-full border-t border-primary/40 py-10 text-center text-sm opacity-60 font-bold bg-black">
-        &gt; CONNECTION SECURE. SYSTEM READY. EOF.
-      </footer>
+            <div className="flex flex-col gap-12">
+              {portfolioData.projects.map((project) => (
+                <div key={project.id} className="group flex flex-col">
+                  <Link href={`/projects/${project.id}`} className="block">
+                    <div className="flex flex-col md:flex-row justify-between md:items-center gap-3">
+                      <h4 className="font-display font-bold text-2xl lg:text-3xl tracking-wide text-white group-hover:text-primary transition-colors">
+                        {project.title}
+                      </h4>
+                      <span className="text-sm font-bold uppercase tracking-widest border border-white/20 px-4 py-2 group-hover:border-primary group-hover:text-primary transition-all text-white/60">
+                        View Detail
+                      </span>
+                    </div>
+                    <p className="text-xs mt-4 uppercase tracking-widest text-primary/70 font-mono">
+                      {project.tags.join(" / ")}
+                    </p>
+                    <p className="mt-4 text-white/70 leading-relaxed font-light">
+                      {project.description}
+                    </p>
+                  </Link>
+                </div>
+              ))}
+            </div>
+          </div>
+        </section>
 
+        {/* Footer */}
+        <footer className="w-full border-t border-white/10 py-16 flex flex-col md:flex-row justify-between items-center z-30 gap-10 px-8 max-w-6xl mx-auto">
+          <div className="flex flex-col gap-2 text-center md:text-left">
+            <h2 className="text-2xl font-display font-bold text-white uppercase tracking-wider">Connect</h2>
+            <p className="text-white/50 text-sm font-light">Building intelligent, production-grade AI systems.</p>
+          </div>
+
+          <div className="flex flex-wrap justify-center md:justify-end items-center gap-8">
+            <a href={`mailto:${portfolioData.contact.email}`} className="text-white/60 hover:text-primary transition-colors font-medium tracking-widest uppercase text-sm">
+              Email
+            </a>
+            <a href={portfolioData.contact.github} target="_blank" rel="noopener noreferrer" className="text-white/60 hover:text-primary transition-colors font-medium tracking-widest uppercase text-sm">
+              GitHub
+            </a>
+            <a href={portfolioData.contact.linkedin} target="_blank" rel="noopener noreferrer" className="text-white/60 hover:text-primary transition-colors font-medium tracking-widest uppercase text-sm">
+              LinkedIn
+            </a>
+          </div>
+        </footer>
+      </div>
     </main>
   );
 }
