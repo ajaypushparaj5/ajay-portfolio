@@ -26,6 +26,8 @@ export default function Home() {
           <a href={`mailto:${portfolioData.contact.email}`} className="hover:text-primary transition-colors uppercase tracking-widest">Email</a>
         </div>
         <div className="hidden md:block uppercase tracking-widest">
+          BTECH Information Technology
+          <br />
           CUSAT, 2023-27
         </div>
       </header>
